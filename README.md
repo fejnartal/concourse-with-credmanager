@@ -49,3 +49,18 @@ password: test
 Manually run the job to see your secret appear! 
 
 <img src="https://user-images.githubusercontent.com/51800873/105198646-28783a80-5b3e-11eb-91cb-fd9351c2b601.png" width="40%">
+
+## Modify secret message
+Open .env file in your preferred editor and modify the value of the SECRET_MESSAGE variable
+
+Tell docker compose to update the services.
+```bash
+docker-compose up -d --build
+```
+Open and manually run the job again. The task now prints the new message: http://localhost:8080/teams/main/pipelines/hello/jobs/hello
+
+## To stop Concourse and cleanup
+
+```bash
+docker-compose down --rmi all -v --remove-orphans
+```
