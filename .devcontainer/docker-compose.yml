@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  fly:
+    image: cryo/concourse-fly:latest
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Fly.Dockerfile
+    depends_on: [concourse]
+    command: ["sleep", "infinity"]
+    volumes:
+    - ..:/workspace
+
+  concourse:
+    image: cryo/concourse:latest
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Concourse.Dockerfile
+    command: quickstart
+    privileged: true
+    depends_on: [concourse-db]
+    ports: ["8080:8080"]
+    environment:
+    - CONCOURSE_POSTGRES_HOST=concourse-db
+    - CONCOURSE_POSTGRES_USER=concourse_user
+    - CONCOURSE_POSTGRES_PASSWORD=concourse_pass
+    - CONCOURSE_POSTGRES_DATABASE=concourse
+    - CONCOURSE_EXTERNAL_URL=http://localhost:8080/
+    - CONCOURSE_ADD_LOCAL_USER=test:test
+    - CONCOURSE_MAIN_TEAM_LOCAL_USER=test
+
+  concourse-db:
+    image: postgres
+    environment:
+    - POSTGRES_DB=concourse
+    - POSTGRES_PASSWORD=concourse_pass
+    - POSTGRES_USER=concourse_user
+    - PGDATA=/database

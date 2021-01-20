@@ -1,0 +1,14 @@
+---
+resources:
+jobs:
+  - name: hello
+    plan:
+      - task: echo-secret
+        config:
+          platform: linux
+          image_resource:
+            type: registry-image
+            source: { repository: busybox }
+          run:
+            path: echo
+            args: [((secret))]
