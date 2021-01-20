@@ -47,3 +47,5 @@ username: test
 password: test
 ```
 Manually run the job to see your secret appear! 
+
+<img src="https://user-images.githubusercontent.com/51800873/105198646-28783a80-5b3e-11eb-91cb-fd9351c2b601.png" width="40%">
