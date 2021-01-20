@@ -1,16 +1,23 @@
 ## Requirements
-You will need a AWS account, IAM user, or equivalent to follow this quickstart...
+To follow this quickstart you will need:
+- Docker Compose installed on your machine. [Learn how to do it.](https://docs.docker.com/compose/install/)
+- An AWS account, IAM user, or equivalent. [Learn how to do it.](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)
 
-**Don't have an account?** [Learn how to create one](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html)
+## Quickstart
 
-Create a file named '.env' inside the '.devcontainer'.
-
-The file should have the following content.
-
-Replace the values in the example with your own credentials.
-
-Notice you need to paste your credentials twice with different variable names.
-
+Clone the repo:
+```bash
+git clone https://github.com/fejnartal/concourse-with-credmanager.git
+```
+Navigate to .devcontainer folder insider the repo:
+```bash
+cd concourse-with-credmanager/.devcontainer
+```
+Create a file named '.env':
+```bash
+touch .env
+```
+Use your preferred editor to paste the following content inside the file:
 ```
 SECRET_MESSAGE=Your secret message here
 
@@ -22,18 +29,21 @@ CONCOURSE_AWS_SECRETSMANAGER_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
 CONCOURSE_AWS_SECRETSMANAGER_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 CONCOURSE_AWS_SECRETSMANAGER_REGION=us-west-2
 ```
+Replace the example AWS credentials with your own ones.<br/>
+Notice you need to paste your credentials twice with different variable names.
 
+You can also change the value of SECRET_MESSAGE to be whatever message you want.<br/>
+We will be retrieving that value securely from Concourse.
 
-## Running example
-
+Let's run everything and wait some seconds for Concourse to start.<br/>
 ```bash
-git clone https://github.com/fejnartal/concourse-with-credmanager.git
-cd concourse-with-credmanager/.devcontainer
 docker-compose up -d --build
 ```
-
-Wait some seconds for Concourse to start.
 Navigate to http://localhost:8080/teams/main/pipelines/hello/jobs/hello
 
-You are ready to run your secret command!
-
+Login:
+```
+username: test
+password: test
+```
+Manually run the job to see your secret appear! 
